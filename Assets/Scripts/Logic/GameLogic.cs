@@ -8,14 +8,16 @@ public class GameLogic
 
     private readonly StartCoroutineDelegate startCoroutine;
     private readonly InstantiateDelegate instantiate;
-    private readonly PlayerScores playerScores;
+    private readonly PlayerScoresLogic playerScoresLogic;
+    private readonly PlayerScoresPresentation playerScoresPresentation;
     private readonly GameData gameData;
 
-    public GameLogic(StartCoroutineDelegate startCoroutine, InstantiateDelegate instantiate, PlayerScores playerScores, GameData gameData)
+    public GameLogic(StartCoroutineDelegate startCoroutine, InstantiateDelegate instantiate, PlayerScoresLogic playerScoresLogic, PlayerScoresPresentation playerScoresPresentation, GameData gameData)
     {
         this.startCoroutine = startCoroutine;
         this.instantiate = instantiate;
-        this.playerScores = playerScores;
+        this.playerScoresLogic = playerScoresLogic;
+        this.playerScoresPresentation = playerScoresPresentation;
         this.gameData = gameData;
 
         startCoroutine(GameFlow());
@@ -25,13 +27,13 @@ public class GameLogic
     {
         while (true)
         {
-            playerScores.Reset();
+            playerScoresLogic.Reset();
 
-            while (!playerScores.MatchOver())
+            while (!playerScoresLogic.MatchOver())
             {
-                playerScores.Display(true);
+                playerScoresPresentation.Display(true);
                 yield return new WaitForSeconds(gameData.DelayBetweenBalls);
-                playerScores.Display(false);
+                playerScoresPresentation.Display(false);
 
                 GameObject liveBall = instantiate(gameData.BallPrefab);
 
@@ -39,9 +41,9 @@ public class GameLogic
                     yield return null;
             }
 
-            playerScores.Display(true);
+            playerScoresPresentation.Display(true);
             yield return new WaitForSeconds(gameData.DelayBetweenMatches);
-            playerScores.Display(true);
+            playerScoresPresentation.Display(true);
         }
     }
 }

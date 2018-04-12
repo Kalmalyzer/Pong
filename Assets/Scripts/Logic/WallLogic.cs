@@ -1,18 +1,18 @@
 ﻿public class WallLogic
 {
-    private readonly PlayerScores playerScores;
+    private readonly PlayerScoresLogic playerScoresLogic;
     private readonly int playerScoreId;
 
-    public WallLogic(PlayerScores playerScores, int playerScoreId)
+    public WallLogic(PlayerScoresLogic playerScoresLogic, int playerScoreId)
     {
-        this.playerScores = playerScores;
+        this.playerScoresLogic = playerScoresLogic;
         this.playerScoreId = playerScoreId;
     }
 
     public void Hit()
     {
-        if (playerScores != null)
-            playerScores.AddPoint(playerScoreId);
+        if (playerScoresLogic != null)
+            playerScoresLogic.AddPoint(playerScoreId);
     }
 }
 

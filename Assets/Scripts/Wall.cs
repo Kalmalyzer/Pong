@@ -16,7 +16,7 @@ public class Wall : MonoBehaviour {
     {
         bounceSfx = GetComponent<AudioSource>();
 
-        wallLogic = new WallLogic(PlayerScores, PlayerScoreId);
+        wallLogic = new WallLogic(PlayerScores?.PlayerScoresLogic, PlayerScoreId);
     }
 
     private void OnTriggerEnter(Collider other)
