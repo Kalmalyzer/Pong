@@ -1,24 +1,31 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Ball : MonoBehaviour {
 
     [Header("Customizable per instance")]
-    public Vector3 Velocity;
+    [FormerlySerializedAs("Velocity")]
+    public Vector3 InitialVelocity;
+
+    private BallSimulation ballSimulation;
+
+    void Start()
+    {
+        ballSimulation = new BallSimulation(InitialVelocity);
+    }
 
     void FixedUpdate()
     {
-        transform.localPosition = transform.localPosition + Velocity * Time.fixedDeltaTime;
+        transform.localPosition = ballSimulation.UpdatePosition(transform.localPosition, Time.fixedDeltaTime);
     }
 
     void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.tag == "HorizontalWall")
-            Velocity = new Vector3(Velocity.x, -Velocity.y, Velocity.z);
+            ballSimulation.ReflectVelocityVertically();
         if (collider.gameObject.tag == "VerticalWall")
-        {
             Destroy(gameObject);
-        }
         if (collider.gameObject.tag == "Paddle")
-            Velocity = new Vector3(-Velocity.x, Velocity.y, Velocity.z);
+            ballSimulation.ReflectVelocityHorizontally();
     }
 }
