@@ -2,22 +2,27 @@
 
 public class BallLogic
 {
+    public delegate Vector3 GetLocalPositionDelegate();
+    public delegate void SetLocalPositionDelegate(Vector3 localPosition);
     public delegate void NoLongerAliveDelegate();
 
     private readonly BallSimulation ballSimulation;
-    private readonly Transform transform;
+    private readonly GetLocalPositionDelegate getLocalPosition;
+    private readonly SetLocalPositionDelegate setLocalPosition;
     private readonly NoLongerAliveDelegate noLongerAlive;
 
-    public BallLogic(Transform transform, BallSimulation ballSimulation, NoLongerAliveDelegate noLongerAlive)
+    public BallLogic(GetLocalPositionDelegate getLocalPosition, SetLocalPositionDelegate setLocalPosition, BallSimulation ballSimulation, NoLongerAliveDelegate noLongerAlive)
     {
-        this.transform = transform;
+        this.getLocalPosition = getLocalPosition;
+        this.setLocalPosition = setLocalPosition;
         this.ballSimulation = ballSimulation;
         this.noLongerAlive = noLongerAlive;
     }
 
     public void FixedUpdate(float fixedDeltaTime)
     {
-        transform.localPosition = ballSimulation.UpdatePosition(transform.localPosition, Time.fixedDeltaTime);
+        Vector3 newPosition = ballSimulation.UpdatePosition(getLocalPosition(), Time.fixedDeltaTime);
+        setLocalPosition(newPosition);
     }
 
     public void Hit(string tag)
