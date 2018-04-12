@@ -1,7 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 public class PlayerScoresLogic
 {
+    public Action OnScoreChanged;
+
     private readonly int pointsToWin;
     private readonly int[] scores;
 
@@ -20,11 +23,15 @@ public class PlayerScoresLogic
     {
         for (int playerId = 0; playerId < scores.Length; playerId++)
             scores[playerId] = 0;
+
+        OnScoreChanged?.Invoke();
     }
 
     public void AddPoint(int playerId)
     {
         scores[playerId]++;
+
+        OnScoreChanged?.Invoke();
     }
 
     public bool MatchOver()
