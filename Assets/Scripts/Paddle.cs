@@ -22,7 +22,7 @@ public class Paddle : MonoBehaviour
 
         paddleInput = new PaddleInput(InputAxisName);
         paddleSimulation = new PaddleSimulation();
-        paddleLogic = new PaddleLogic(transform, PaddleData, paddleInput, paddleSimulation);
+        paddleLogic = new PaddleLogic(() => transform.position, (position) => transform.position = position, PaddleData, paddleInput, paddleSimulation);
     }
 
     void Update()

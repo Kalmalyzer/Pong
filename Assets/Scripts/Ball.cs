@@ -13,7 +13,7 @@ public class Ball : MonoBehaviour {
     void Start()
     {
         ballSimulation = new BallSimulation(InitialVelocity);
-        ballLogic = new BallLogic(transform, ballSimulation, () => Destroy(gameObject));
+        ballLogic = new BallLogic(() => transform.localPosition, (localPosition) => transform.localPosition = localPosition, ballSimulation, () => Destroy(gameObject));
     }
 
     void FixedUpdate()
