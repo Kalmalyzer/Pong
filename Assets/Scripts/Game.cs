@@ -3,10 +3,7 @@ using UnityEngine;
 
 public class Game : MonoBehaviour {
 
-    public GameObject BallPrefab;
-
-    public float DelayBetweenBalls = 1.0f;
-    public float DelayBetweenMatches = 1.0f;
+    public GameData GameData;
 
     public GameObject PlayerScores;
 
@@ -23,20 +20,20 @@ public class Game : MonoBehaviour {
         {
             PlayerScores.GetComponent<PlayerScores>().Reset();
 
-            while (PlayerScores.GetComponent<PlayerScores>().GetHighestScore() < 3)
+            while (!PlayerScores.GetComponent<PlayerScores>().MatchOver())
             {
                 PlayerScores.SetActive(true);
-                yield return new WaitForSeconds(DelayBetweenBalls);
+                yield return new WaitForSeconds(GameData.DelayBetweenBalls);
                 PlayerScores.SetActive(false);
 
-                liveBall = Instantiate(BallPrefab);
+                liveBall = Instantiate(GameData.BallPrefab);
 
                 while (liveBall)
                     yield return null;
             }
 
             PlayerScores.SetActive(true);
-            yield return new WaitForSeconds(DelayBetweenMatches);
+            yield return new WaitForSeconds(GameData.DelayBetweenMatches);
             PlayerScores.SetActive(false);
         }
     }

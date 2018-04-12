@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class PlayerScores : MonoBehaviour {
 
+    public PlayerScoresData PlayerScoresData;
+
     private int[] Scores = new int[2];
 
     private Text scoresText;
@@ -20,17 +22,17 @@ public class PlayerScores : MonoBehaviour {
         scoresText.text = string.Format("{0} - {1}", Scores[0], Scores[1]);
     }
 
-    public int GetHighestScore()
+    public bool MatchOver()
     {
-        return Mathf.Max(Scores[0], Scores[1]);
+        return Mathf.Max(Scores[0], Scores[1]) >= PlayerScoresData.PointsToWin;
     }
 
     public void AddPoint(int playerId)
     {
         Scores[playerId]++;
-        if (Scores[0] >= 3)
+        if (Scores[0] >= PlayerScoresData.PointsToWin)
             scoresText.text = string.Format("Winner: Player 1 ({0} - {1})", Scores[0], Scores[1]);
-        else if (Scores[1] >= 3)
+        else if (Scores[1] >= PlayerScoresData.PointsToWin)
             scoresText.text = string.Format("Winner: Player 2 ({0} - {1})", Scores[0], Scores[1]);
         else
             scoresText.text = string.Format("{0} - {1}", Scores[0], Scores[1]);

@@ -188,6 +188,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5284a4da119967340bea1c286e702b91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PaddleData: {fileID: 11400000, guid: 17c0564c1909c684394fcd2746405602, type: 2}
   InputAxisName: 
-  MovementSpeedScaleFactor: 5
-  PositionScale: 3
