@@ -1,22 +1,22 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class BallLogic
 {
     public delegate Vector3 GetLocalPositionDelegate();
     public delegate void SetLocalPositionDelegate(Vector3 localPosition);
-    public delegate void NoLongerAliveDelegate();
+
+    public Action OnDestroyed;
 
     private readonly BallSimulation ballSimulation;
     private readonly GetLocalPositionDelegate getLocalPosition;
     private readonly SetLocalPositionDelegate setLocalPosition;
-    private readonly NoLongerAliveDelegate noLongerAlive;
 
-    public BallLogic(GetLocalPositionDelegate getLocalPosition, SetLocalPositionDelegate setLocalPosition, BallSimulation ballSimulation, NoLongerAliveDelegate noLongerAlive)
+    public BallLogic(GetLocalPositionDelegate getLocalPosition, SetLocalPositionDelegate setLocalPosition, BallSimulation ballSimulation)
     {
         this.getLocalPosition = getLocalPosition;
         this.setLocalPosition = setLocalPosition;
         this.ballSimulation = ballSimulation;
-        this.noLongerAlive = noLongerAlive;
     }
 
     public void FixedUpdate(float fixedDeltaTime)
@@ -30,7 +30,7 @@ public class BallLogic
         if (tag == "HorizontalWall")
             ballSimulation.ReflectVelocityVertically();
         if (tag == "VerticalWall")
-            noLongerAlive();
+            OnDestroyed();
         if (tag == "Paddle")
             ballSimulation.ReflectVelocityHorizontally();
     }

@@ -7,22 +7,23 @@ public class Ball : MonoBehaviour {
     [FormerlySerializedAs("Velocity")]
     public Vector3 InitialVelocity;
 
-    private BallLogic ballLogic;
+    public BallLogic BallLogic { get; private set; }
     private BallSimulation ballSimulation;
 
-    void Start()
+    void Awake()
     {
         ballSimulation = new BallSimulation(InitialVelocity);
-        ballLogic = new BallLogic(() => transform.localPosition, (localPosition) => transform.localPosition = localPosition, ballSimulation, () => Destroy(gameObject));
+        BallLogic = new BallLogic(() => transform.localPosition, (localPosition) => transform.localPosition = localPosition, ballSimulation);
+        BallLogic.OnDestroyed += () => Destroy(gameObject);
     }
 
     void FixedUpdate()
     {
-        ballLogic.FixedUpdate(Time.fixedDeltaTime);
+        BallLogic.FixedUpdate(Time.fixedDeltaTime);
     }
 
     void OnTriggerEnter(Collider collider)
     {
-        ballLogic.Hit(collider.gameObject.tag);
+        BallLogic.Hit(collider.gameObject.tag);
     }
 }

@@ -12,7 +12,7 @@ public class Wall : MonoBehaviour {
 
     private WallLogic wallLogic;
 
-    void Start()
+    void Awake()
     {
         bounceSfx = GetComponent<AudioSource>();
 

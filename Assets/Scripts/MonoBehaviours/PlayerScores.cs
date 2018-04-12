@@ -11,7 +11,7 @@ public class PlayerScores : MonoBehaviour {
     [HideInInspector]
     public PlayerScoresPresentation PlayerScoresPresentation { get; private set; }
 
-    void Start()
+    void Awake()
     {
         const int numPlayers = 2;
 
