@@ -13,6 +13,7 @@ public class Paddle : MonoBehaviour
 
     private PaddleInput paddleInput;
     private PaddleSimulation paddleSimulation;
+    private PaddleLogic paddleLogic;
 
     void Start()
     {
@@ -21,15 +22,12 @@ public class Paddle : MonoBehaviour
 
         paddleInput = new PaddleInput(InputAxisName);
         paddleSimulation = new PaddleSimulation();
+        paddleLogic = new PaddleLogic(transform, PaddleData, paddleInput, paddleSimulation);
     }
 
     void Update()
     {
-        float inputAxisReading = paddleInput.ReadInput();
-
-        float yPosition = paddleSimulation.UpdatePosition(inputAxisReading, PaddleData.MovementSpeedScaleFactor, Time.deltaTime);
-
-        transform.position = new Vector3(transform.position.x, yPosition * PaddleData.PositionScale, transform.position.z);
+        paddleLogic.Update(Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
