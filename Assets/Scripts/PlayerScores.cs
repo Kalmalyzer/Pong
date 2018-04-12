@@ -6,36 +6,41 @@ public class PlayerScores : MonoBehaviour {
     [Header("Static Data")]
     public PlayerScoresData PlayerScoresData;
 
-    private int[] Scores = new int[2];
-
     private Text scoresText;
+
+    private PlayerScoresLogic playerScoresLogic;
+
+    private string PlayerScoresToString()
+    {
+        return string.Format("{0} - {1}", playerScoresLogic.PlayerScore(0), playerScoresLogic.PlayerScore(1));
+    }
 
     void Start()
     {
         scoresText = GetComponent<Text>();
-        scoresText.text = string.Format("{0} - {1}", Scores[0], Scores[1]);
+        playerScoresLogic = new PlayerScoresLogic(PlayerScoresData.PointsToWin);
+        scoresText.text = PlayerScoresToString();
     }
 
     public void Reset()
     {
-        for (int i = 0; i < 2; i++)
-            Scores[i] = 0;
-        scoresText.text = string.Format("{0} - {1}", Scores[0], Scores[1]);
+        playerScoresLogic.Reset();
+        scoresText.text = PlayerScoresToString();
     }
 
     public bool MatchOver()
     {
-        return Mathf.Max(Scores[0], Scores[1]) >= PlayerScoresData.PointsToWin;
+        return Mathf.Max(playerScoresLogic.PlayerScore(0), playerScoresLogic.PlayerScore(1)) >= PlayerScoresData.PointsToWin;
     }
 
     public void AddPoint(int playerId)
     {
-        Scores[playerId]++;
-        if (Scores[0] >= PlayerScoresData.PointsToWin)
-            scoresText.text = string.Format("Winner: Player 1 ({0} - {1})", Scores[0], Scores[1]);
-        else if (Scores[1] >= PlayerScoresData.PointsToWin)
-            scoresText.text = string.Format("Winner: Player 2 ({0} - {1})", Scores[0], Scores[1]);
+        playerScoresLogic.AddPoint(playerId);
+        if (playerScoresLogic.PlayerScore(0) >= PlayerScoresData.PointsToWin)
+            scoresText.text = string.Format("Winner: Player 1 ({0})", PlayerScoresToString());
+        else if (playerScoresLogic.PlayerScore(1) >= PlayerScoresData.PointsToWin)
+            scoresText.text = string.Format("Winner: Player 2 ({0})", PlayerScoresToString());
         else
-            scoresText.text = string.Format("{0} - {1}", Scores[0], Scores[1]);
+            scoresText.text = PlayerScoresToString();
     }
 }
