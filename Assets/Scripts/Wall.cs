@@ -2,6 +2,9 @@
 
 public class Wall : MonoBehaviour {
 
+    public PlayerScores PlayerScores;
+    public int PlayerScoreId;
+
     private AudioSource bounceSfx;
 
     void Start()
@@ -12,5 +15,8 @@ public class Wall : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         bounceSfx.Play();
+
+        if (PlayerScores != null)
+            PlayerScores.AddPoint(PlayerScoreId);
     }
 }
