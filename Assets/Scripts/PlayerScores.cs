@@ -17,5 +17,7 @@ public class PlayerScores : MonoBehaviour {
 
         Text scoresText = GetComponent<Text>();
         PlayerScoresPresentation = new PlayerScoresPresentation((visible) => gameObject.SetActive(visible), PlayerScoresLogic, PlayerScoresData.PointsToWin, scoresText);
+
+        PlayerScoresLogic.OnScoreChanged += PlayerScoresPresentation.UpdateText;
     }
 }
