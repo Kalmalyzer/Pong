@@ -8,6 +8,8 @@ public class Game : MonoBehaviour {
 
     public float DelayBetweenBalls = 1.0f;
 
+    public GameObject PlayerScores;
+
     private GameObject liveBall;
 
     void Start () {
@@ -19,7 +21,9 @@ public class Game : MonoBehaviour {
     {
         while (true)
         {
+            PlayerScores.SetActive(true);
             yield return new WaitForSeconds(DelayBetweenBalls);
+            PlayerScores.SetActive(false);
 
             liveBall = Instantiate(BallPrefab);
 
