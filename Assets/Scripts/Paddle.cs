@@ -8,20 +8,26 @@ public class Paddle : MonoBehaviour
     [Header("Customizable settings")]
     public string InputAxisName;
 
-    private float yPosition;
     private MeshRenderer mesh;
     private AudioSource bounceSfx;
+
+    private PaddleInput paddleInput;
+    private PaddleSimulation paddleSimulation;
 
     void Start()
     {
         mesh = GetComponent<MeshRenderer>();
         bounceSfx = GetComponent<AudioSource>();
+
+        paddleInput = new PaddleInput(InputAxisName);
+        paddleSimulation = new PaddleSimulation();
     }
 
     void Update()
     {
-        float delta = Input.GetAxis(InputAxisName) * PaddleData.MovementSpeedScaleFactor * Time.deltaTime;
-        yPosition = Mathf.Clamp(yPosition + delta, -1, 1);
+        float inputAxisReading = paddleInput.ReadInput();
+
+        float yPosition = paddleSimulation.UpdatePosition(inputAxisReading, PaddleData.MovementSpeedScaleFactor, Time.deltaTime);
 
         transform.position = new Vector3(transform.position.x, yPosition * PaddleData.PositionScale, transform.position.z);
     }
