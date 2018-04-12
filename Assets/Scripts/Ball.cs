@@ -7,11 +7,13 @@ public class Ball : MonoBehaviour {
     [FormerlySerializedAs("Velocity")]
     public Vector3 InitialVelocity;
 
+    private BallLogic ballLogic;
     private BallSimulation ballSimulation;
 
     void Start()
     {
         ballSimulation = new BallSimulation(InitialVelocity);
+        ballLogic = new BallLogic(ballSimulation);
     }
 
     void FixedUpdate()
@@ -21,11 +23,8 @@ public class Ball : MonoBehaviour {
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.tag == "HorizontalWall")
-            ballSimulation.ReflectVelocityVertically();
-        if (collider.gameObject.tag == "VerticalWall")
+        bool isAlive = ballLogic.Hit(collider.gameObject.tag);
+        if (!isAlive)
             Destroy(gameObject);
-        if (collider.gameObject.tag == "Paddle")
-            ballSimulation.ReflectVelocityHorizontally();
     }
 }
