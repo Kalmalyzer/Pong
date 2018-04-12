@@ -6,8 +6,6 @@ public class PlayerScores : MonoBehaviour {
     [Header("Static Data")]
     public PlayerScoresData PlayerScoresData;
 
-    private Text scoresText;
-
     private PlayerScoresLogic playerScoresLogic;
     private PlayerScoresPresentation playerScoresPresentation;
 
