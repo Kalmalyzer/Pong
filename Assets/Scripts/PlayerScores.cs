@@ -17,8 +17,10 @@ public class PlayerScores : MonoBehaviour {
 
     void Start()
     {
+        const int numPlayers = 2;
+
         scoresText = GetComponent<Text>();
-        playerScoresLogic = new PlayerScoresLogic(PlayerScoresData.PointsToWin);
+        playerScoresLogic = new PlayerScoresLogic(numPlayers, PlayerScoresData.PointsToWin);
         scoresText.text = PlayerScoresToString();
     }
 
