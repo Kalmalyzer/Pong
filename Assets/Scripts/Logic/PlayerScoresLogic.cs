@@ -3,7 +3,7 @@
 public class PlayerScoresLogic
 {
     private readonly int pointsToWin;
-    private int[] scores;
+    private readonly int[] scores;
 
     public PlayerScoresLogic(int numPlayers, int pointsToWin)
     {
