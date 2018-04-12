@@ -8,10 +8,12 @@ public class Paddle : MonoBehaviour
 
     private float yPosition;
     private MeshRenderer mesh;
+    private AudioSource bounceSfx;
 
     void Start()
     {
         mesh = GetComponent<MeshRenderer>();
+        bounceSfx = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -20,5 +22,10 @@ public class Paddle : MonoBehaviour
         yPosition = Mathf.Clamp(yPosition + delta, -1, 1);
 
         transform.position = new Vector3(transform.position.x, yPosition * PositionScale, transform.position.z);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        bounceSfx.Play();
     }
 }
