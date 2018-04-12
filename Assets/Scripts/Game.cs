@@ -9,34 +9,9 @@ public class Game : MonoBehaviour {
     [Header("References within scene")]
     public GameObject PlayerScores;
 
-    private GameObject liveBall;
+    private GameLogic gameLogic;
 
     void Start () {
-
-        StartCoroutine(GameFlow());
+        gameLogic = new GameLogic((routine) => StartCoroutine(routine), (prefab) => Instantiate(prefab), PlayerScores.GetComponent<PlayerScores>(), GameData);
 	}
-
-    private IEnumerator GameFlow()
-    {
-        while (true)
-        {
-            PlayerScores.GetComponent<PlayerScores>().Reset();
-
-            while (!PlayerScores.GetComponent<PlayerScores>().MatchOver())
-            {
-                PlayerScores.SetActive(true);
-                yield return new WaitForSeconds(GameData.DelayBetweenBalls);
-                PlayerScores.SetActive(false);
-
-                liveBall = Instantiate(GameData.BallPrefab);
-
-                while (liveBall)
-                    yield return null;
-            }
-
-            PlayerScores.SetActive(true);
-            yield return new WaitForSeconds(GameData.DelayBetweenMatches);
-            PlayerScores.SetActive(false);
-        }
-    }
 }

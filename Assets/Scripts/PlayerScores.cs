@@ -36,4 +36,9 @@ public class PlayerScores : MonoBehaviour {
         playerScoresLogic.AddPoint(playerId);
         playerScoresPresentation.UpdateText();
     }
+
+    public void Display(bool visible)
+    {
+        gameObject.SetActive(visible);
+    }
 }
