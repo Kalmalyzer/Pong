@@ -14,7 +14,7 @@ public class Paddle : MonoBehaviour
     private PaddleSimulation paddleSimulation;
     private PaddleLogic paddleLogic;
 
-    void Start()
+    void Awake()
     {
         bounceSfx = GetComponent<AudioSource>();
 

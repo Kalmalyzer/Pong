@@ -4,18 +4,18 @@ using UnityEngine;
 public class GameLogic
 {
     public delegate void StartCoroutineDelegate(IEnumerator routine);
-    public delegate GameObject InstantiateDelegate(GameObject prefab);
+    public delegate BallLogic CreateBallDelegate();
 
     private readonly StartCoroutineDelegate startCoroutine;
-    private readonly InstantiateDelegate instantiate;
+    private readonly CreateBallDelegate createBall;
     private readonly PlayerScoresLogic playerScoresLogic;
     private readonly PlayerScoresPresentation playerScoresPresentation;
     private readonly GameData gameData;
 
-    public GameLogic(StartCoroutineDelegate startCoroutine, InstantiateDelegate instantiate, PlayerScoresLogic playerScoresLogic, PlayerScoresPresentation playerScoresPresentation, GameData gameData)
+    public GameLogic(StartCoroutineDelegate startCoroutine, CreateBallDelegate createBall, PlayerScoresLogic playerScoresLogic, PlayerScoresPresentation playerScoresPresentation, GameData gameData)
     {
         this.startCoroutine = startCoroutine;
-        this.instantiate = instantiate;
+        this.createBall = createBall;
         this.playerScoresLogic = playerScoresLogic;
         this.playerScoresPresentation = playerScoresPresentation;
         this.gameData = gameData;
@@ -35,9 +35,12 @@ public class GameLogic
                 yield return new WaitForSeconds(gameData.DelayBetweenBalls);
                 playerScoresPresentation.Display(false);
 
-                GameObject liveBall = instantiate(gameData.BallPrefab);
+                bool ballIsAlive = true;
 
-                while (liveBall)
+                BallLogic ballLogic = createBall();
+                ballLogic.OnDestroyed += () => ballIsAlive = false;
+
+                while (ballIsAlive)
                     yield return null;
             }
 
