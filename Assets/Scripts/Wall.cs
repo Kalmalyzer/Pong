@@ -10,16 +10,19 @@ public class Wall : MonoBehaviour {
 
     private AudioSource bounceSfx;
 
+    private WallLogic wallLogic;
+
     void Start()
     {
         bounceSfx = GetComponent<AudioSource>();
+
+        wallLogic = new WallLogic(PlayerScores, PlayerScoreId);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        bounceSfx.Play();
+        wallLogic.Hit();
 
-        if (PlayerScores != null)
-            PlayerScores.AddPoint(PlayerScoreId);
+        bounceSfx.Play();
     }
 }

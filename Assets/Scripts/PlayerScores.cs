@@ -9,40 +9,33 @@ public class PlayerScores : MonoBehaviour {
     private Text scoresText;
 
     private PlayerScoresLogic playerScoresLogic;
-
-    private string PlayerScoresToString()
-    {
-        return string.Format("{0} - {1}", playerScoresLogic.PlayerScore(0), playerScoresLogic.PlayerScore(1));
-    }
+    private PlayerScoresPresentation playerScoresPresentation;
 
     void Start()
     {
         const int numPlayers = 2;
 
-        scoresText = GetComponent<Text>();
         playerScoresLogic = new PlayerScoresLogic(numPlayers, PlayerScoresData.PointsToWin);
-        scoresText.text = PlayerScoresToString();
+
+        Text scoresText = GetComponent<Text>();
+        playerScoresPresentation = new PlayerScoresPresentation(playerScoresLogic, PlayerScoresData.PointsToWin, scoresText);
+        playerScoresPresentation.UpdateText();
     }
 
     public void Reset()
     {
         playerScoresLogic.Reset();
-        scoresText.text = PlayerScoresToString();
+        playerScoresPresentation.UpdateText();
     }
 
     public bool MatchOver()
     {
-        return Mathf.Max(playerScoresLogic.PlayerScore(0), playerScoresLogic.PlayerScore(1)) >= PlayerScoresData.PointsToWin;
+        return playerScoresLogic.MatchOver();
     }
 
     public void AddPoint(int playerId)
     {
         playerScoresLogic.AddPoint(playerId);
-        if (playerScoresLogic.PlayerScore(0) >= PlayerScoresData.PointsToWin)
-            scoresText.text = string.Format("Winner: Player 1 ({0})", PlayerScoresToString());
-        else if (playerScoresLogic.PlayerScore(1) >= PlayerScoresData.PointsToWin)
-            scoresText.text = string.Format("Winner: Player 2 ({0})", PlayerScoresToString());
-        else
-            scoresText.text = PlayerScoresToString();
+        playerScoresPresentation.UpdateText();
     }
 }

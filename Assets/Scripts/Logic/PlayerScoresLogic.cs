@@ -1,7 +1,8 @@
-﻿public class PlayerScoresLogic
+﻿using System.Linq;
+
+public class PlayerScoresLogic
 {
     private readonly int pointsToWin;
-
     private int[] scores;
 
     public PlayerScoresLogic(int numPlayers, int pointsToWin)
@@ -24,5 +25,10 @@
     public void AddPoint(int playerId)
     {
         scores[playerId]++;
+    }
+
+    public bool MatchOver()
+    {
+        return scores.Max() >= pointsToWin;
     }
 }
