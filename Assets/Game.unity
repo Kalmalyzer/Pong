@@ -365,6 +365,11 @@ Prefab:
       propertyPath: m_Name
       value: HorizontalWall - Top
       objectReference: {fileID: 0}
+    - target: {fileID: 65288707157075658, guid: 78d3ad04eef84bd40b1de199fa2407ac,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 78d3ad04eef84bd40b1de199fa2407ac, type: 2}
   m_IsPrefabParent: 0
@@ -458,7 +463,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4042936300373060, guid: 7d291d15440a0bd47a536881626e49c3, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -9
       objectReference: {fileID: 0}
     - target: {fileID: 4042936300373060, guid: 7d291d15440a0bd47a536881626e49c3, type: 2}
       propertyPath: m_LocalPosition.y
