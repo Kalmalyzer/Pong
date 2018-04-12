@@ -2,11 +2,12 @@
 {
     private readonly int pointsToWin;
 
-    private int[] scores = new int[2];
+    private int[] scores;
 
-    public PlayerScoresLogic(int pointsToWin)
+    public PlayerScoresLogic(int numPlayers, int pointsToWin)
     {
         this.pointsToWin = pointsToWin;
+        scores = new int[numPlayers];
     }
 
     public int PlayerScore(int playerId)
@@ -16,7 +17,7 @@
 
     public void Reset()
     {
-        for (int playerId = 0; playerId < 2; playerId++)
+        for (int playerId = 0; playerId < scores.Length; playerId++)
             scores[playerId] = 0;
     }
 
