@@ -13,18 +13,16 @@ public class Ball : MonoBehaviour {
     void Start()
     {
         ballSimulation = new BallSimulation(InitialVelocity);
-        ballLogic = new BallLogic(ballSimulation);
+        ballLogic = new BallLogic(transform, ballSimulation, () => Destroy(gameObject));
     }
 
     void FixedUpdate()
     {
-        transform.localPosition = ballSimulation.UpdatePosition(transform.localPosition, Time.fixedDeltaTime);
+        ballLogic.FixedUpdate(Time.fixedDeltaTime);
     }
 
     void OnTriggerEnter(Collider collider)
     {
-        bool isAlive = ballLogic.Hit(collider.gameObject.tag);
-        if (!isAlive)
-            Destroy(gameObject);
+        ballLogic.Hit(collider.gameObject.tag);
     }
 }
