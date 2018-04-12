@@ -2,8 +2,10 @@
 
 public class Paddle : MonoBehaviour
 {
+    [Header("Static Data")]
     public PaddleData PaddleData;
 
+    [Header("Customizable settings")]
     public string InputAxisName;
 
     private float yPosition;

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class PlayerScores : MonoBehaviour {
 
+    [Header("Static Data")]
     public PlayerScoresData PlayerScoresData;
 
     private int[] Scores = new int[2];

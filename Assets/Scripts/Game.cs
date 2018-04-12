@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class Game : MonoBehaviour {
 
+    [Header("Static Data")]
     public GameData GameData;
 
+    [Header("References within scene")]
     public GameObject PlayerScores;
 
     private GameObject liveBall;

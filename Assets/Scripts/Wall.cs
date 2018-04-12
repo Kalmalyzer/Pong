@@ -2,7 +2,10 @@
 
 public class Wall : MonoBehaviour {
 
+    [Header("References within scene")]
     public PlayerScores PlayerScores;
+
+    [Header("Customizable per instance")]
     public int PlayerScoreId;
 
     private AudioSource bounceSfx;
