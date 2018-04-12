@@ -6,7 +6,9 @@ public class PlayerScores : MonoBehaviour {
     [Header("Static Data")]
     public PlayerScoresData PlayerScoresData;
 
+    [HideInInspector]
     public PlayerScoresLogic PlayerScoresLogic { get; private set; }
+    [HideInInspector]
     public PlayerScoresPresentation PlayerScoresPresentation { get; private set; }
 
     void Start()
