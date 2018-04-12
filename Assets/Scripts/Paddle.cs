@@ -8,7 +8,6 @@ public class Paddle : MonoBehaviour
     [Header("Customizable settings")]
     public string InputAxisName;
 
-    private MeshRenderer mesh;
     private AudioSource bounceSfx;
 
     private PaddleInput paddleInput;
@@ -17,7 +16,6 @@ public class Paddle : MonoBehaviour
 
     void Start()
     {
-        mesh = GetComponent<MeshRenderer>();
         bounceSfx = GetComponent<AudioSource>();
 
         paddleInput = new PaddleInput(InputAxisName);
