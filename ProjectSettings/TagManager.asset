@@ -6,6 +6,7 @@ TagManager:
   tags:
   - HorizontalWall
   - VerticalWall
+  - Paddle
   layers:
   - Default
   - TransparentFX
