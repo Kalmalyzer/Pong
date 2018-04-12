@@ -14,6 +14,8 @@ public class GameLogic
     public GameLogic(StartCoroutineDelegate startCoroutine, InstantiateDelegate instantiate, PlayerScores playerScores, GameData gameData)
     {
         this.startCoroutine = startCoroutine;
+        this.instantiate = instantiate;
+        this.playerScores = playerScores;
         this.gameData = gameData;
 
         startCoroutine(GameFlow());
