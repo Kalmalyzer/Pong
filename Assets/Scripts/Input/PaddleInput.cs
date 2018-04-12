@@ -2,7 +2,7 @@
 
 public class PaddleInput
 {
-    private string axisName;
+    private readonly string axisName;
 
     public PaddleInput(string axisName)
     {
