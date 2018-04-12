@@ -2,12 +2,16 @@
 
 public class PlayerScoresPresentation
 {
+    public delegate void DisplayDelegate(bool visible);
+
+    private DisplayDelegate display;
     private readonly PlayerScoresLogic playerScoresLogic;
     private readonly int pointsToWin;
     private readonly Text scoresText;
 
-    public PlayerScoresPresentation(PlayerScoresLogic playerScoresLogic, int pointsToWin, Text scoresText)
+    public PlayerScoresPresentation(DisplayDelegate display, PlayerScoresLogic playerScoresLogic, int pointsToWin, Text scoresText)
     {
+        this.display = display;
         this.playerScoresLogic = playerScoresLogic;
         this.pointsToWin = pointsToWin;
         this.scoresText = scoresText;
@@ -28,4 +32,8 @@ public class PlayerScoresPresentation
             scoresText.text = PlayerScoresToString();
     }
 
+    public void Display(bool visible)
+    {
+        display(visible);
+    }
 }

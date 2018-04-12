@@ -12,6 +12,7 @@ public class Game : MonoBehaviour {
     private GameLogic gameLogic;
 
     void Start () {
-        gameLogic = new GameLogic((routine) => StartCoroutine(routine), (prefab) => Instantiate(prefab), PlayerScores.GetComponent<PlayerScores>(), GameData);
+        PlayerScores playerScores = PlayerScores.GetComponent<PlayerScores>();
+        gameLogic = new GameLogic((routine) => StartCoroutine(routine), (prefab) => Instantiate(prefab), playerScores.PlayerScoresLogic, playerScores.PlayerScoresPresentation, GameData);
 	}
 }

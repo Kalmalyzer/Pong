@@ -6,39 +6,16 @@ public class PlayerScores : MonoBehaviour {
     [Header("Static Data")]
     public PlayerScoresData PlayerScoresData;
 
-    private PlayerScoresLogic playerScoresLogic;
-    private PlayerScoresPresentation playerScoresPresentation;
+    public PlayerScoresLogic PlayerScoresLogic { get; private set; }
+    public PlayerScoresPresentation PlayerScoresPresentation { get; private set; }
 
     void Start()
     {
         const int numPlayers = 2;
 
-        playerScoresLogic = new PlayerScoresLogic(numPlayers, PlayerScoresData.PointsToWin);
+        PlayerScoresLogic = new PlayerScoresLogic(numPlayers, PlayerScoresData.PointsToWin);
 
         Text scoresText = GetComponent<Text>();
-        playerScoresPresentation = new PlayerScoresPresentation(playerScoresLogic, PlayerScoresData.PointsToWin, scoresText);
-        playerScoresPresentation.UpdateText();
-    }
-
-    public void Reset()
-    {
-        playerScoresLogic.Reset();
-        playerScoresPresentation.UpdateText();
-    }
-
-    public bool MatchOver()
-    {
-        return playerScoresLogic.MatchOver();
-    }
-
-    public void AddPoint(int playerId)
-    {
-        playerScoresLogic.AddPoint(playerId);
-        playerScoresPresentation.UpdateText();
-    }
-
-    public void Display(bool visible)
-    {
-        gameObject.SetActive(visible);
+        PlayerScoresPresentation = new PlayerScoresPresentation((visible) => gameObject.SetActive(visible), PlayerScoresLogic, PlayerScoresData.PointsToWin, scoresText);
     }
 }
