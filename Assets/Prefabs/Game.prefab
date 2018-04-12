@@ -51,5 +51,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab565e16d5a8cfa49a7a81cd133773dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BallPrefab: {fileID: 1995437295403296, guid: 05a3d98e690424543856bbe73e47adb2, type: 2}
-  DelayBetweenBalls: 1
+  GameData: {fileID: 11400000, guid: 4213eb188d294c7408791f8195809959, type: 2}
+  PlayerScores: {fileID: 0}

@@ -2,9 +2,9 @@
 
 public class Paddle : MonoBehaviour
 {
+    public PaddleData PaddleData;
+
     public string InputAxisName;
-    public float MovementSpeedScaleFactor;
-    public float PositionScale;
 
     private float yPosition;
     private MeshRenderer mesh;
@@ -18,10 +18,10 @@ public class Paddle : MonoBehaviour
 
     void Update()
     {
-        float delta = Input.GetAxis(InputAxisName) * MovementSpeedScaleFactor * Time.deltaTime;
+        float delta = Input.GetAxis(InputAxisName) * PaddleData.MovementSpeedScaleFactor * Time.deltaTime;
         yPosition = Mathf.Clamp(yPosition + delta, -1, 1);
 
-        transform.position = new Vector3(transform.position.x, yPosition * PositionScale, transform.position.z);
+        transform.position = new Vector3(transform.position.x, yPosition * PaddleData.PositionScale, transform.position.z);
     }
 
     private void OnTriggerEnter(Collider other)
