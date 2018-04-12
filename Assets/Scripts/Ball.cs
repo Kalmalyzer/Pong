@@ -2,6 +2,7 @@
 
 public class Ball : MonoBehaviour {
 
+    [Header("Customizable per instance")]
     public Vector3 Velocity;
 
     void FixedUpdate()
