@@ -16,7 +16,9 @@ public class Ball : MonoBehaviour {
         if (collider.gameObject.tag == "HorizontalWall")
             Velocity = new Vector3(Velocity.x, -Velocity.y, Velocity.z);
         if (collider.gameObject.tag == "VerticalWall")
-            Velocity = new Vector3(-Velocity.x, Velocity.y, Velocity.z);
+        {
+            Destroy(gameObject);
+        }
         if (collider.gameObject.tag == "Paddle")
             Velocity = new Vector3(-Velocity.x, Velocity.y, Velocity.z);
     }
