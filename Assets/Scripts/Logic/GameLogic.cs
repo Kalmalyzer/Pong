@@ -23,6 +23,24 @@ public class GameLogic
         startCoroutine(GameFlow());
     }
 
+    private IEnumerator DisplayScores(float delay)
+    {
+        playerScoresPresentation.Display(true);
+        yield return new WaitForSeconds(delay);
+        playerScoresPresentation.Display(false);
+    }
+
+    private IEnumerator BallFlow()
+    {
+        bool ballIsAlive = true;
+
+        BallLogic ballLogic = createBall();
+        ballLogic.OnDestroyed += () => ballIsAlive = false;
+
+        while (ballIsAlive)
+            yield return null;
+    }
+
     private IEnumerator GameFlow()
     {
         while (true)
@@ -31,22 +49,12 @@ public class GameLogic
 
             while (!playerScoresLogic.MatchOver())
             {
-                playerScoresPresentation.Display(true);
-                yield return new WaitForSeconds(gameData.DelayBetweenBalls);
-                playerScoresPresentation.Display(false);
+                yield return DisplayScores(gameData.DelayBetweenBalls);
 
-                bool ballIsAlive = true;
-
-                BallLogic ballLogic = createBall();
-                ballLogic.OnDestroyed += () => ballIsAlive = false;
-
-                while (ballIsAlive)
-                    yield return null;
+                yield return BallFlow();
             }
 
-            playerScoresPresentation.Display(true);
-            yield return new WaitForSeconds(gameData.DelayBetweenMatches);
-            playerScoresPresentation.Display(true);
+            yield return DisplayScores(gameData.DelayBetweenMatches);
         }
     }
 }
