@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Paddle : MonoBehaviour
+public class Paddle : MonoBehaviour, IPositionAdapter
 {
     [Header("Static Data")]
     public PaddleData PaddleData;
@@ -14,13 +14,19 @@ public class Paddle : MonoBehaviour
     private PaddleSimulation paddleSimulation;
     private PaddleLogic paddleLogic;
 
+    public Vector3 Position
+    {
+        get { return transform.position; }
+        set { transform.position = value; }
+    }
+
     void Awake()
     {
         bounceSfx = GetComponent<AudioSource>();
 
         paddleInput = new PaddleInput(InputAxisName);
         paddleSimulation = new PaddleSimulation();
-        paddleLogic = new PaddleLogic(() => transform.position, (position) => transform.position = position, PaddleData, paddleInput, paddleSimulation);
+        paddleLogic = new PaddleLogic(this, PaddleData, paddleInput, paddleSimulation);
     }
 
     void Update()

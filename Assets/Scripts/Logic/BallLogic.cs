@@ -3,26 +3,21 @@ using UnityEngine;
 
 public class BallLogic
 {
-    public delegate Vector3 GetLocalPositionDelegate();
-    public delegate void SetLocalPositionDelegate(Vector3 localPosition);
-
     public Action OnDestroyed;
 
     private readonly BallSimulation ballSimulation;
-    private readonly GetLocalPositionDelegate getLocalPosition;
-    private readonly SetLocalPositionDelegate setLocalPosition;
+    private readonly ILocalPositionAdapter localPositionAdapter;
 
-    public BallLogic(GetLocalPositionDelegate getLocalPosition, SetLocalPositionDelegate setLocalPosition, BallSimulation ballSimulation)
+    public BallLogic(ILocalPositionAdapter localPositionAdapter, BallSimulation ballSimulation)
     {
-        this.getLocalPosition = getLocalPosition;
-        this.setLocalPosition = setLocalPosition;
+        this.localPositionAdapter = localPositionAdapter;
         this.ballSimulation = ballSimulation;
     }
 
     public void FixedUpdate(float fixedDeltaTime)
     {
-        Vector3 newPosition = ballSimulation.UpdatePosition(getLocalPosition(), Time.fixedDeltaTime);
-        setLocalPosition(newPosition);
+        Vector3 newPosition = ballSimulation.UpdatePosition(localPositionAdapter.LocalPosition, Time.fixedDeltaTime);
+        localPositionAdapter.LocalPosition = newPosition;
     }
 
     public void Hit(string tag)
