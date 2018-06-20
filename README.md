@@ -5,8 +5,32 @@ This repository contains a Pong game which goes through a number of steps as it 
 
 ## Different versions of the Pong game
 
-[Minimal, initial implementation of the Pong game](https://github.com/Kalmalyzer/Pong/tree/minimal-implementation)
-[Shared data has been moved out from Prefabs and into ScriptableObjects](https://github.com/Kalmalyzer/Pong/tree/shared-data-in-scriptable-objects)
-[Most logic has been moved out of MonoBehaviours](https://github.com/Kalmalyzer/Pong/tree/logic-moved-out-of-monobehaviours)
-[Logic is independent of MonoBehaviours](https://github.com/Kalmalyzer/Pong/tree/logic-independent-of-monobehaviours)
-[Master control coroutine split into subroutines](https://github.com/Kalmalyzer/Pong/tree/coroutine-split-into-subroutines)
+### Minimal, initial implementation of the Pong game
+
+[Source code](https://github.com/Kalmalyzer/Pong/tree/minimal-implementation)
+
+This is a straight-forward implementation of the Pong game. One MonoBehaviour for each 'thing' in the game.
+
+### Shared data has been moved out from Prefabs and into ScriptableObjects
+
+[Source code](https://github.com/Kalmalyzer/Pong/tree/shared-data-in-scriptable-objects)
+
+Any parameters in prefabs which are not intended to be tweaked individually per-instance has been moved to ScriptableObjects. This makes it easier to see in the editor which prefab values are intended to be tweaked per-instance and which shouldn't (these parameters need to be edited via the shared ScriptableObjects instead).
+
+### Most logic has been moved out of MonoBehaviours
+
+[Source code](https://github.com/Kalmalyzer/Pong/tree/logic-moved-out-of-monobehaviours)
+
+The bulk of logic has been moved out of MonoBehaviours and into separate Logic/Simulation/etc classes. MonoBehaviours are mostly controlling object lifetime and ensuring Unity engine callbacks are forwarded to the appropriate classes.
+
+### Logic is independent of MonoBehaviours
+
+[Source code](https://github.com/Kalmalyzer/Pong/tree/logic-independent-of-monobehaviours)
+
+Delegates and interfaces are used to make Logic/Simulation/etc classes be more self-contained, with the adaptation logic present in the MonoBehaviour.
+
+### Master control coroutine split into subroutines
+
+[Source code](https://github.com/Kalmalyzer/Pong/tree/coroutine-split-into-subroutines)
+
+A coroutine which does several fiddly things has been broken into sub-coroutines. This creates a bit more separation between intent and execution.
