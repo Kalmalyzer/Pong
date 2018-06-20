@@ -3,6 +3,8 @@
 
 This repository contains a Pong game which goes through a number of steps as it is gradually decomposed into smaller bits and pieces. The intention here is to demonstrate the techniques - for the example Pong game it makes little difference, but the same principles can be used successfully on larger projects.
 
+It is the companion source code to my Unite Berlin 2018 presentation, "From Pong to 15-person project". YouTube recording at start of [this video](https://www.youtube.com/watch?v=BW9qSy6ZB0A).
+
 ## Different versions of the Pong game
 
 ### Minimal, initial implementation of the Pong game
